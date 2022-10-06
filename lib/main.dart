@@ -1,8 +1,19 @@
+import 'dart:io';
+import 'package:all_tests/layout/shopLayout.dart';
+import 'package:all_tests/shared/cubit/shop_cubit.dart';
+import 'package:all_tests/shared/cubit/states.dart';
+import 'package:all_tests/shared/network/local/cache_helper.dart';
+import 'package:all_tests/shared/network/remote/dio_helper.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:toast/toast.dart';
+import 'modules/shop_app/login/Login_cubit/Login_cubit.dart';
+import 'modules/shop_app/login/Login_cubit/states.dart';
+import 'modules/shop_app/login/loginScreen.dart';
 import 'modules/shop_app/on_Boarding/onBoardingScreen.dart';
 import 'shared/blocObserver.dart';
+import 'shared/components/constant.dart';
 import 'shared/network/style/theme.dart';
 
 void main()async {
@@ -10,19 +21,57 @@ void main()async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
-  runApp(MyApp());
+  DioHelper.init();
+  await CacheHelper.init();
+
+  //dynamic isDark= CacheHelper.getData(key: 'isDark');
+  late Widget widget;
+
+  bool? onBoarding=CacheHelper.getData(key: 'onBoarding');
+  token = CacheHelper.getData(key: 'token');
+
+  print(token);
+
+  if(onBoarding == true)
+  {
+    if(token != null) {
+     widget =ShopLayoutScreen();
+    }
+    else {
+      widget = ShopLoginScreen();
+    }
+  }else {
+    widget = OnBoardingScreen();
+  }
+
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(MyApp(startWidget:widget,));
+
+
+}
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
 }
 
 class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
 
-        return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: lightTheme,
-              darkTheme:darkTheme,
-              home:OnBoardingScreen(),
-            );
+  //final dynamic isDark;
+  final Widget? startWidget;
+  MyApp({this.startWidget});
+  Widget build(BuildContext context) {
+        return BlocProvider(
+          create: (context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData(),
+          child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme:darkTheme,
+                home:startWidget,
+              ),
+        );
 
 
 

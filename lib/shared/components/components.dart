@@ -1,4 +1,7 @@
+import 'package:all_tests/shared/cubit/shop_cubit.dart';
+import 'package:all_tests/shared/network/style/color.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 Widget defaultButton({
   double width = double.infinity,
@@ -19,6 +22,7 @@ Widget defaultButton({
           isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
             color: Colors.white,
+            fontSize: 20,
           ),
         ),
       ),
@@ -33,19 +37,24 @@ Widget defaultButton({
 Widget defaultTextButten({
   required Function function,
   required String text,
+  Color color = Colors.blue,
+
 })=>TextButton(
     onPressed: (){function();},
     child: Text(
-        text.toUpperCase())
+        text.toUpperCase(),
+      style: TextStyle(
+        color: color
+      ),
+    )
+
 );
 
 Widget defaultFormField ({
   required TextEditingController controller,
   required TextInputType type,
-  Function? onSubmit,
-  Function? onChange,
-  Function? onTap,
   FormFieldValidator? validate,
+  Function? onSubmit,
   required String label,
   required IconData prefix,
   IconData? suffix,
@@ -54,21 +63,16 @@ Widget defaultFormField ({
   bool isClickable = true,
 }
 
-
 ) => TextFormField(
   controller: controller,
+  keyboardType:type ,
+  obscureText: isPassword,
   onFieldSubmitted:(s){
     onSubmit!(s);
   },
-  onChanged:(s){
-    onChange!(s);
+  validator: (value) {
+    return validate!(value);
   },
-  keyboardType:type ,
-  obscureText: isPassword,
-  onTap: (){
-    onTap!();
-  },
-  validator: validate,
   enabled: isClickable,
   decoration: InputDecoration(
     labelText: label,
@@ -97,3 +101,169 @@ void navigateAndFinish(context,Widget) => Navigator.pushAndRemoveUntil(
       builder:(context) => Widget,
     ),
         (route) => false);
+
+void showToast(
+    {
+      required text,
+      required ToastState state,
+
+    }
+)=>Toast.show(
+      text,
+      duration: 5,
+      gravity: Toast.bottom,
+      textStyle: TextStyle(fontSize: 16),
+      backgroundColor: chooseToastColor(state),
+
+);
+
+enum ToastState {SUCCESS,ERROR,WARNING}
+
+Color chooseToastColor(ToastState state)
+{
+  Color? color;
+
+  switch(state)
+  {
+    case ToastState.SUCCESS:
+       color = Colors.green;
+       break;
+    case ToastState.ERROR:
+       color = Colors.red;
+       break;
+    case ToastState.WARNING:
+       color = Colors.amber;
+       break;
+  }
+  return color;
+}
+
+void showSnackBar(
+    context,
+    {
+      required text,
+      required ToastState state,
+
+    }
+    )
+{
+  final snackBar=  SnackBar(
+      content: Text('$text'),
+      backgroundColor:chooseToastColor(state),
+
+    );
+
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+}
+
+Widget myDivider() =>Padding(
+  padding: const EdgeInsetsDirectional.only(start: 10.0),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.grey[300],
+  ),
+);
+
+Widget buildListItem(
+     model,
+    context,
+    {
+      bool isfavScreen=true,
+
+    }
+    )=>Padding(
+  padding: const EdgeInsets.all(20.0),
+  child: Container(
+    height: 120,
+    child: Row(
+      children: [
+        Stack(
+          alignment:AlignmentDirectional.bottomStart ,
+          children: [
+            Image(
+              image: NetworkImage('${model.image}'),
+              width: 120,
+              height: 120,
+
+            ),
+            if(model.discount !=0 && isfavScreen)
+              Container(
+                color: Colors.red,
+                padding: EdgeInsets.symmetric(horizontal: 5.0),
+                child: Text(
+                  'discount',
+                  style: TextStyle(
+                      fontSize: 8.0,
+                      color: Colors.white
+                  ),
+                ),
+              )
+          ],
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${model.name}',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 14.0,
+                    height: 1.3
+                ),
+
+              ),
+              Spacer(),
+              Row(
+                children: [
+                  Text(
+                    '${model.price}',
+                    style: TextStyle(
+                      fontSize: 12.0,
+                      color: defaultColor,
+                    ),
+
+                  ),
+                  SizedBox(
+                    width: 5.0,),
+                  if(model.discount !=0 && isfavScreen)
+                    Text(
+                      '${model.oldPrice}',
+                      style: TextStyle(
+                          fontSize: 10.0,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough
+                      ),
+
+
+                    ),
+                  Spacer(),
+                  if(isfavScreen)
+                      IconButton(onPressed:(){
+                   ShopCubit.get(context).changeFavorites(model.id);
+                  },
+                      icon: CircleAvatar(
+                          radius: 15.0,
+                          backgroundColor:ShopCubit.get(context).favorites[model.id] ? defaultColor: Colors.grey,
+                          child: Icon(
+                            Icons.favorite_border,
+                            size: 14.0,
+                            color: Colors.white,
+                          )
+                      )),
+                ],
+              ),
+            ],
+          ),
+        )
+
+      ],
+    ),
+  ),
+);

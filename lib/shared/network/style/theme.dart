@@ -5,7 +5,6 @@ import 'color.dart';
 
 ThemeData darkTheme =ThemeData(
   fontFamily: 'Jannah',
-  primarySwatch:  defaultColor,
   scaffoldBackgroundColor:HexColor('333739'),
   appBarTheme: AppBarTheme(
       backgroundColor: HexColor('333739'),
@@ -42,7 +41,6 @@ ThemeData darkTheme =ThemeData(
 
 ThemeData lightTheme =ThemeData(
   fontFamily: 'Jannah',
-  primarySwatch:  defaultColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
@@ -63,7 +61,7 @@ ThemeData lightTheme =ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     type: BottomNavigationBarType.fixed,
     elevation: 20.0,
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
   ),
   textTheme: TextTheme(
       bodyText1: TextStyle(

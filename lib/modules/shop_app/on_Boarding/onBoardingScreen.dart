@@ -1,5 +1,6 @@
 import 'package:all_tests/modules/shop_app/login/loginScreen.dart';
 import 'package:all_tests/shared/components/components.dart';
+import 'package:all_tests/shared/network/local/cache_helper.dart';
 import 'package:all_tests/shared/network/style/color.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -29,18 +30,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   [
     OnBoardingModel(
       image: 'assets/images/onboard_1.jpg',
-      title: 'On Boarding 1 Title',
-      body:  'On Boarding 1 Body',
+      title: 'You don\'t have to go shopping',
+      body:  'In past you had to go shopping but it waste your time',
     ),
     OnBoardingModel(
-      image: 'assets/images/onboard_1.jpg',
-      title: 'On Boarding 2 Title',
-      body:  'On Boarding 2 Body',
+      image: 'assets/images/onboard2.jpg',
+      title: 'Now the life is easy',
+      body:  'You can buy anything without going out your home anymore',
     ),
     OnBoardingModel(
-      image: 'assets/images/onboard_1.jpg',
-      title: 'On Boarding 3 Title',
-      body:  'On Boarding 3 Body',
+      image: 'assets/images/onboard3.jpg',
+      title: 'Your order will come to your home',
+      body:  'It\'s easy now, you will receive your order faster by using drones delivery',
     ),
 
   ];
@@ -49,22 +50,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   bool isLast =false;
 
+  void  submit(){
+    CacheHelper.saveData(key: 'onBoarding', value: true);
+    navigateAndFinish(context,ShopLoginScreen());
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           defaultTextButten(
-              function: (){
-                navigateAndFinish(context,ShopLoginScreen());},
-              text: 'Skip')
+              function: submit,
+              text: 'Skip',
+            color: defaultColor
+          )
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: [
-            Expanded(
-              child: PageView.builder(
+            Flexible(
+              child:  PageView.builder(
                 controller: boardController,
                 physics: BouncingScrollPhysics(),
                 onPageChanged: (int index)
@@ -109,7 +116,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   onPressed: () {
                     if(isLast)
                     {
-                      navigateAndFinish(context,ShopLoginScreen());
+                      submit();
                     }
                     else
                     {
@@ -118,6 +125,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ), curve: Curves.fastLinearToSlowEaseIn);
                     }
                   },
+                  backgroundColor: defaultColor,
                   child: Icon(Icons.arrow_forward_ios),)
               ],
             )
@@ -127,36 +135,36 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     );
   }
 
-  Widget buildBoardingItem(OnBoardingModel model)=>Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Expanded(
-        child: Image(
-            image: AssetImage('${model.image}')
+  Widget buildBoardingItem(OnBoardingModel model)=>Center(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Image(
+              image: AssetImage('${model.image}')
+          ),
         ),
-      ),
-      SizedBox(
-        height: 30.0,
-      ),
-      Text(
-        '${model.title}',
-        style: TextStyle(
-          fontSize: 24.0,
-        ),
-      ),
-      SizedBox(
-        height: 10.0,
-      ),
-      Text(
-        '${model.body}',
-        style: TextStyle(
-          fontSize: 14.0,
-        ),
-      ),
-      SizedBox(
-        height: 30.0,
-      ),
 
-    ],
+       Text(
+         '${model.title}',
+         style: TextStyle(
+           fontSize: 24.0,
+         ),
+       ),
+       SizedBox(
+         height: 10.0,
+       ),
+       Text(
+         '${model.body}',
+         style: TextStyle(
+           fontSize: 14.0,
+         ),
+       ),
+        SizedBox(
+          height: 30.0,
+        ),
+
+      ],
+    ),
   );
 }
