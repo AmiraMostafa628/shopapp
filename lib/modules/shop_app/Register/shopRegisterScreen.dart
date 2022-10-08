@@ -171,7 +171,7 @@ class ShopRegisterScreen extends StatelessWidget {
                                 }
                               },
                               background: defaultColor,
-                              text: 'Sign in'
+                              text: 'Sign up'
                           ) ,
                           fallback: (context)=>Center(child: CircularProgressIndicator()),
                         ),
