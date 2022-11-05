@@ -2,9 +2,11 @@ import 'package:all_tests/models/shop_model/categories_model.dart';
 import 'package:all_tests/shared/components/components.dart';
 import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:all_tests/shared/cubit/states.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class CategoriesScreen extends StatelessWidget {
 
@@ -12,16 +14,20 @@ class CategoriesScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit,ShopStates>(
         listener: (context,state){},
         builder: (context,state){
-          return ListView.separated(
-              itemBuilder: (context,index)=>buildCatItem(ShopCubit.get(context).categoriesModel!.data!.data[index]),
-              separatorBuilder: (context,index)=> myDivider(),
-              itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length);
+          return ConditionalBuilder(
+            condition: ShopCubit.get(context).categoriesModel != null,
+            builder: (context)=>ListView.separated(
+                itemBuilder: (context,index)=>buildCatItem(ShopCubit.get(context).categoriesModel!.data!.data[index],context),
+                separatorBuilder: (context,index)=> myDivider(),
+                itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length),
+            fallback: (context)=>Center(child: CircularProgressIndicator()),
+          );
         },
         );
   }
 
 
-  Widget buildCatItem(DataModel model)=>Padding(
+  Widget buildCatItem(DataModel model,context)=>Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children: [
@@ -39,12 +45,16 @@ class CategoriesScreen extends StatelessWidget {
           '${model.name}',
           style: TextStyle(
               fontSize: 24.0,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.bold,
+               color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
           ),
         ),
         Spacer(),
         Icon(
-            Icons.arrow_forward_ios),
+            Icons.arrow_forward_ios,
+          color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+
+        ),
 
       ],
     ),

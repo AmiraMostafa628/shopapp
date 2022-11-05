@@ -7,9 +7,6 @@ import 'package:all_tests/shared/network/remote/dio_helper.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toast/toast.dart';
-import 'modules/shop_app/login/Login_cubit/Login_cubit.dart';
-import 'modules/shop_app/login/Login_cubit/states.dart';
 import 'modules/shop_app/login/loginScreen.dart';
 import 'modules/shop_app/on_Boarding/onBoardingScreen.dart';
 import 'shared/blocObserver.dart';
@@ -24,7 +21,7 @@ void main()async {
   DioHelper.init();
   await CacheHelper.init();
 
-  //dynamic isDark= CacheHelper.getData(key: 'isDark');
+  dynamic isDark= CacheHelper.getData(key: 'isDark');
   late Widget widget;
 
   bool? onBoarding=CacheHelper.getData(key: 'onBoarding');
@@ -45,7 +42,7 @@ void main()async {
   }
 
   HttpOverrides.global = MyHttpOverrides();
-  runApp(MyApp(startWidget:widget,));
+  runApp(MyApp(startWidget:widget,isDark: isDark,));
 
 
 }
@@ -59,18 +56,26 @@ class MyHttpOverrides extends HttpOverrides{
 
 class MyApp extends StatelessWidget {
 
-  //final dynamic isDark;
   final Widget? startWidget;
-  MyApp({this.startWidget});
+  final dynamic isDark;
+
+  MyApp({this.startWidget,this.isDark});
   Widget build(BuildContext context) {
         return BlocProvider(
-          create: (context) => ShopCubit()..getHomeData()..getCategories()..getFavorites()..getUserData(),
-          child: MaterialApp(
+          create: (context) => ShopCubit()
+            ..getHomeData()..getCategories()..getFavorites()..getUserData()..changeMode(fromShared: isDark),
+          child: BlocConsumer<ShopCubit,ShopStates>(
+            listener: (context,state){},
+            builder: (context,state){
+              return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 theme: lightTheme,
                 darkTheme:darkTheme,
+                themeMode: ShopCubit.get(context).isDark?ThemeMode.dark:ThemeMode.light,
                 home:startWidget,
-              ),
+              );
+            },
+          ),
         );
 
 

@@ -23,7 +23,14 @@ class ShopLayoutScreen extends StatelessWidget {
                   IconButton(onPressed: (){
                     NavigateTo(context, SearchScreen());
                   }
-                      , icon: Icon(Icons.search))
+                      , icon: Icon(Icons.search)),
+                  IconButton(
+                    onPressed: (){
+                      ShopCubit.get(context).changeMode();
+                    },
+                    icon: Icon(Icons.brightness_4_outlined),
+                  ),
+                  
                 ],
               ),
               body: cubit.bottomScreens[cubit.currentIndex],

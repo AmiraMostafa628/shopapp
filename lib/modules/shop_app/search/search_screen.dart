@@ -1,11 +1,13 @@
 import 'package:all_tests/modules/shop_app/search/cubit/searchCubit.dart';
 import 'package:all_tests/modules/shop_app/search/cubit/states.dart';
 import 'package:all_tests/shared/components/components.dart';
+import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class SearchScreen extends StatelessWidget {
 
@@ -28,6 +30,7 @@ class SearchScreen extends StatelessWidget {
                   children: [
                     defaultFormField(
                         controller: searchController,
+                        color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                         type: TextInputType.text,
                         validate: (value)
                         {
@@ -39,7 +42,8 @@ class SearchScreen extends StatelessWidget {
                            ShopSearch.get(context).SearchProduct(text);
                         },
                         label: 'Search',
-                        prefix: Icons.search
+                        prefix: Icons.search,
+
                     ),
                     SizedBox(
                       height: 20.0,

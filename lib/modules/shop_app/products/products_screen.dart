@@ -9,6 +9,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -71,10 +72,7 @@ class ProductsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Categories',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
               Container(
                 height: 100,
@@ -86,10 +84,7 @@ class ProductsScreen extends StatelessWidget {
                     itemCount:categoriesModel.data!.data.length ),
               ),
               Text('New Products',
-                style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: Theme.of(context).textTheme.bodyText1,
               ),
             ],
           ),
@@ -105,7 +100,7 @@ class ProductsScreen extends StatelessWidget {
               crossAxisCount: 2,
               mainAxisSpacing: 1.0,
               crossAxisSpacing:1.0 ,
-              childAspectRatio: 1/1.58,
+              childAspectRatio: 1/1.68,
               children: List.generate(model.data!.products.length,
                       (index) => buildGridProduct(model.data!.products[index],context)),
 
@@ -141,32 +136,35 @@ class ProductsScreen extends StatelessWidget {
   Widget buildGridProduct(ProductModel model,context)
   {
     return Container(
-      color: Colors.white,
+      color:  ShopCubit.get(context).isDark? HexColor('333739'):Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            alignment:AlignmentDirectional.bottomStart ,
-            children: [
-              Image(
-                image: NetworkImage('${model.image}'),
-                width: double.infinity,
-                height: 200,
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Stack(
+              alignment:AlignmentDirectional.bottomStart ,
+              children: [
+                Image(
+                  image: NetworkImage('${model.image}'),
+                  width: double.infinity,
+                  height: 200,
 
-              ),
-              if(model.disCount !=0)
-                  Container(
-                color: Colors.red,
-                padding: EdgeInsets.symmetric(horizontal: 5.0),
-                child: Text(
-                  'discount',
-                  style: TextStyle(
-                    fontSize: 8.0,
-                    color: Colors.white
-                  ),
                 ),
-              )
-            ],
+                if(model.disCount !=0)
+                    Container(
+                  color: Colors.red,
+                  padding: EdgeInsets.symmetric(horizontal: 5.0),
+                  child: Text(
+                    'discount',
+                    style: TextStyle(
+                      fontSize: 8.0,
+                      color: Colors.white
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
          Padding(
            padding: const EdgeInsets.all(12.0),
@@ -179,7 +177,8 @@ class ProductsScreen extends StatelessWidget {
                  overflow: TextOverflow.ellipsis,
                  style: TextStyle(
                      fontSize: 14.0,
-                     height: 1.3
+                     height: 1.3,
+                     color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
                  ),
 
                ),

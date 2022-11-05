@@ -1,8 +1,10 @@
 import 'package:all_tests/modules/shop_app/login/loginScreen.dart';
 import 'package:all_tests/shared/components/components.dart';
+import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:all_tests/shared/network/local/cache_helper.dart';
 import 'package:all_tests/shared/network/style/color.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingModel
@@ -149,6 +151,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
          '${model.title}',
          style: TextStyle(
            fontSize: 24.0,
+           color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
          ),
        ),
        SizedBox(
@@ -158,6 +161,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
          '${model.body}',
          style: TextStyle(
            fontSize: 14.0,
+           color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
          ),
        ),
         SizedBox(

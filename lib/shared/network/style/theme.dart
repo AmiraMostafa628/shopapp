@@ -3,45 +3,47 @@ import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'color.dart';
 
-ThemeData darkTheme =ThemeData(
-  fontFamily: 'Jannah',
-  scaffoldBackgroundColor:HexColor('333739'),
-  appBarTheme: AppBarTheme(
+ThemeData darkTheme = ThemeData(
+    fontFamily: 'Jannah',
+    appBarTheme: AppBarTheme(
+        backgroundColor: HexColor('333739'),
+        iconTheme: IconThemeData(
+            color: Colors.white
+        ),
+        elevation: 0.0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: HexColor('333739'),
+            statusBarIconBrightness: Brightness.light
+        ),
+        titleTextStyle: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+        )
+    ),
+    scaffoldBackgroundColor:HexColor('333739'),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
       backgroundColor: HexColor('333739'),
-      iconTheme: IconThemeData(
-          color: Colors.white ),
-      elevation: 0.0,
-      backwardsCompatibility: false,
-      systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Colors.black,
-          statusBarIconBrightness: Brightness.light
-      ),
-      titleTextStyle: TextStyle(
-          color: Colors.white,
-          fontSize: 20.0,
-          fontWeight: FontWeight.bold
-      )
-  ),
-  bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    elevation: 20.0,
-    selectedItemColor: defaultColor,
-    unselectedItemColor: Colors.grey,
-    backgroundColor: HexColor('333739'),
-  ),
-  textTheme: TextTheme(
+      elevation: 20.0,
+      selectedItemColor: defaultColor,
+      unselectedItemColor: Colors.grey[400],
+
+    ),
+
+    textTheme: TextTheme(
       bodyText1: TextStyle(
-          fontSize: 20.0,
+          fontSize: 24,
           fontWeight: FontWeight.w600,
           color: Colors.white
-      )
-  ),
+      ),
 
+    )
 );
 
 ThemeData lightTheme =ThemeData(
   fontFamily: 'Jannah',
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: Colors.white ,
   appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(
@@ -59,13 +61,15 @@ ThemeData lightTheme =ThemeData(
 
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    type: BottomNavigationBarType.fixed,
-    elevation: 20.0,
-    selectedItemColor: defaultColor,
+      type: BottomNavigationBarType.fixed,
+      elevation: 20.0,
+      selectedItemColor: defaultColor,
+      unselectedItemColor: Colors.grey[400],
+      backgroundColor: Colors.white
   ),
   textTheme: TextTheme(
       bodyText1: TextStyle(
-          fontSize: 18.0,
+          fontSize: 24.0,
           fontWeight: FontWeight.w600,
           color: Colors.black
       )

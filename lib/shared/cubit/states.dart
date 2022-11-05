@@ -70,3 +70,5 @@ class ShopErrorUpdateUserDataState extends ShopStates {
 }
 
 class AppChangeBottomModeState extends ShopStates{}
+
+class AppChangeCurrentModeState extends ShopStates{}

@@ -191,5 +191,23 @@ class ShopCubit extends Cubit<ShopStates>{
 
    }
 
+   bool isDark = false;
+   void changeMode({bool? fromShared})
+   {
+     if(fromShared != null)
+     {
+       isDark = fromShared;
+       emit(AppChangeCurrentModeState());
+     }
+     else
+     {
+       isDark = !isDark;
+       CacheHelper.saveData(key: 'isDark', value: isDark).then((value) {
+         emit(AppChangeCurrentModeState());
+       });
+     }
+
+   }
+
 
 }

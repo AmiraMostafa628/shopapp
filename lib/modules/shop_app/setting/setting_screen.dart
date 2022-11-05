@@ -7,6 +7,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class SettingScreen extends StatelessWidget {
 
@@ -29,7 +30,7 @@ class SettingScreen extends StatelessWidget {
 
 
         return ConditionalBuilder(
-          condition: ShopCubit.get(context).userModel != null,
+          condition: ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
           builder: (context)=>Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
@@ -43,6 +44,7 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: nameController,
+                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.text,
                       validate: (value)
                       {
@@ -57,6 +59,7 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: emailController,
+                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.emailAddress,
                       validate: (value)
                       {
@@ -71,6 +74,7 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: phoneController,
+                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.phone,
                       validate: (value)
                       {

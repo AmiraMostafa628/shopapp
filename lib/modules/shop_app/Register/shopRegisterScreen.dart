@@ -1,7 +1,6 @@
 import 'package:all_tests/layout/shopLayout.dart';
 import 'package:all_tests/modules/shop_app/Register/Register_cubit/register_cubit.dart';
 import 'package:all_tests/modules/shop_app/Register/Register_cubit/states.dart';
-import 'package:all_tests/modules/shop_app/login/Login_cubit/Login_cubit.dart';
 import 'package:all_tests/modules/shop_app/login/loginScreen.dart';
 import 'package:all_tests/shared/components/components.dart';
 import 'package:all_tests/shared/components/constant.dart';
@@ -11,6 +10,7 @@ import 'package:all_tests/shared/network/style/color.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ShopRegisterScreen extends StatelessWidget {
 
@@ -39,6 +39,7 @@ class ShopRegisterScreen extends StatelessWidget {
                 token =state.loginModel.data!.token;
 
                 ShopCubit.get(context).currentIndex =0;
+                ShopCubit.get(context).getUserData();
 
                 navigateAndFinish(
                     context, ShopLayoutScreen()
@@ -71,7 +72,7 @@ class ShopRegisterScreen extends StatelessWidget {
                       children: [
                         Text('REGISTER',
                             style: Theme.of(context).textTheme.headline4?.copyWith(
-                                color: Colors.black
+                              color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
                             )
                         ),
                         Text('Register now to browse our hot offers',
@@ -84,6 +85,7 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: nameController,
+                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.name,
                             validate: ( value)
                             {
@@ -98,6 +100,7 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: emailController,
+                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.emailAddress,
                             validate: ( value)
                             {
@@ -112,19 +115,9 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                           controller: passwordController,
+                          color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                           type: TextInputType.visiblePassword,
                           isPassword: ShopRegisterCubit.get(context).ispassword,
-                          onSubmit: (value)
-                          {
-                            if(formKey.currentState!.validate()) {
-                            ShopRegisterCubit.get(context).userRegister(
-                              name: nameController.text,
-                              email: emailController.text,
-                              password: passwordController.text,
-                              phone: phoneController.text,
-                            );
-                          }
-                          },
                           suffixPressed: (){
                             ShopRegisterCubit.get(context).changePasswordVisibility();
                           },
@@ -137,6 +130,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock,
                           suffix: ShopRegisterCubit.get(context).suffix,
+                          iconColor:ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
 
                         ),
                         SizedBox(
@@ -144,6 +138,7 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: phoneController,
+                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.phone,
                             validate: ( value)
                             {
@@ -183,6 +178,9 @@ class ShopRegisterScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Already  have an account',
+                              style: TextStyle(
+                                color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+                              ),
                             ),
                             defaultTextButten(
                                 function:(){

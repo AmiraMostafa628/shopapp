@@ -1,6 +1,7 @@
 import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:all_tests/shared/network/style/color.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 
 Widget defaultButton({
@@ -61,10 +62,15 @@ Widget defaultFormField ({
   bool isPassword =false,
   Function? suffixPressed,
   bool isClickable = true,
+  Color? color,
+  Color? iconColor,
 }
 
 ) => TextFormField(
   controller: controller,
+  style: TextStyle(
+      color: color
+  ),
   keyboardType:type ,
   obscureText: isPassword,
   onFieldSubmitted:(s){
@@ -76,12 +82,17 @@ Widget defaultFormField ({
   enabled: isClickable,
   decoration: InputDecoration(
     labelText: label,
-    prefixIcon: Icon(prefix),
+    labelStyle: TextStyle(
+      color: color
+    ) ,
+    prefixIcon: Icon(
+      prefix,
+      color: color,),
     suffixIcon: suffix!= null ? IconButton(
         onPressed: () {
           suffixPressed!();
         },
-        icon:Icon(suffix)) : null ,
+        icon:Icon(suffix),color: iconColor,) : null ,
     border:OutlineInputBorder(),
   ),
 
@@ -214,8 +225,9 @@ Widget buildListItem(
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    fontSize: 14.0,
-                    height: 1.3
+                    fontSize: 15.0,
+                    height: 1.4,
+                    color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
                 ),
 
               ),

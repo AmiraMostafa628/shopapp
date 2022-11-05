@@ -8,6 +8,7 @@ import 'package:all_tests/shared/network/style/color.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 import 'Login_cubit/Login_cubit.dart';
 import 'Login_cubit/states.dart';
@@ -84,7 +85,7 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         Text('LOGIN',
                             style: Theme.of(context).textTheme.headline4?.copyWith(
-                                color: Colors.black
+                              color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
                             )
                         ),
                         Text('Login now to browse our hot offers',
@@ -97,6 +98,7 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: emailController,
+                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.emailAddress,
                             validate: ( value)
                             {
@@ -111,6 +113,7 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                           controller: passwordController,
+                          color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                           type: TextInputType.visiblePassword,
                           isPassword: ShopLoginCubit.get(context).ispassword,
                           onSubmit: (value)
@@ -134,6 +137,7 @@ class ShopLoginScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock,
                           suffix: ShopLoginCubit.get(context).suffix,
+                          iconColor: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
 
                         ),
                         SizedBox(
@@ -162,6 +166,9 @@ class ShopLoginScreen extends StatelessWidget {
                           children: [
                             Text(
                               'Don\'t have an account?',
+                              style: TextStyle(
+                                color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+                              ),
                             ),
                             defaultTextButten(
                                 function:(){
