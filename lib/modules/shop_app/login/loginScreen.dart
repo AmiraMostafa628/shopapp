@@ -116,15 +116,6 @@ class ShopLoginScreen extends StatelessWidget {
                           color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                           type: TextInputType.visiblePassword,
                           isPassword: ShopLoginCubit.get(context).ispassword,
-                          onSubmit: (value)
-                          {
-                            if(formKey.currentState!.validate()) {
-                              ShopLoginCubit.get(context).userLogin(
-                                email: emailController.text,
-                                password: passwordController.text,
-                              );
-                            }
-                          },
                           suffixPressed: (){
                             ShopLoginCubit.get(context).changePasswordVisibility();
                           },
