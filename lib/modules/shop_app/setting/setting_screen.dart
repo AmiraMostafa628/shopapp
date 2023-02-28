@@ -30,7 +30,7 @@ class SettingScreen extends StatelessWidget {
 
 
         return ConditionalBuilder(
-          condition: ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
+          condition: ShopCubit.get(context).userModel != null,
           builder: (context)=>Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
@@ -44,7 +44,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: nameController,
-                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.text,
                       validate: (value)
                       {
@@ -59,7 +58,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: emailController,
-                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.emailAddress,
                       validate: (value)
                       {
@@ -74,7 +72,6 @@ class SettingScreen extends StatelessWidget {
                   ),
                   defaultFormField(
                       controller: phoneController,
-                      color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                       type: TextInputType.phone,
                       validate: (value)
                       {
@@ -85,31 +82,66 @@ class SettingScreen extends StatelessWidget {
                       prefix: Icons.phone
                   ),
                   SizedBox(
-                    height: 20.0,
+                    height: 10.0,
                   ),
-                  defaultButton(
-                      function: (){
-                         if(formKey.currentState!.validate())
-                           {
-                             ShopCubit.get(context).updateData(
-                                 name: nameController.text,
-                                 email: emailController.text,
-                                 phone: phoneController.text);
-                           }
-                      },
-                      background: defaultColor,
-                      text:'UPDATE' ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  defaultButton(
-                      function: (){
-                        signOut(context: context);
-
-                      },
-                      background: defaultColor,
-                      text:'LOGOUT' )
-
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          onTap: (){
+                            if(formKey.currentState!.validate())
+                            {
+                              ShopCubit.get(context).updateData(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  phone: phoneController.text);
+                            }
+                          },
+                          child: Container(
+                            height: 60,
+                            child: Row(
+                              children: [
+                                Icon(Icons.update,color: defaultColor),
+                                SizedBox(
+                                  width: 15.0,
+                                ),
+                                Text('Update',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: defaultColor
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: (){
+                            signOut(context: context);
+                          },
+                          child: Container(
+                            height: 60,
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout_outlined,color: defaultColor),
+                                SizedBox(
+                                  width: 15.0,
+                                ),
+                                Text('Log Out',
+                                  style: TextStyle(
+                                      fontSize: 20.0,
+                                      color: defaultColor
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  )
                 ],
               ),
             ),

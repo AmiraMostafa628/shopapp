@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../../shared/components/constant.dart';
+
 class CategoriesScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
@@ -43,11 +45,7 @@ class CategoriesScreen extends StatelessWidget {
         ),
         Text(
           '${model.name}',
-          style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
-               color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
-          ),
+          style: Theme.of(context).textTheme.bodyText1!,
         ),
         Spacer(),
         Icon(

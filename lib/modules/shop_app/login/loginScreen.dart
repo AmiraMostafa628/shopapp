@@ -42,6 +42,9 @@ class ShopLoginScreen extends StatelessWidget {
                 token =state.loginModel.data!.token;
                 ShopCubit.get(context).currentIndex =0;
                 ShopCubit.get(context).getUserData();
+                ShopCubit.get(context).getHomeData();
+                ShopCubit.get(context).getCategories();
+                ShopCubit.get(context).getFavorites();
 
                 navigateAndFinish(
                     context, ShopLayoutScreen()
@@ -56,13 +59,10 @@ class ShopLoginScreen extends StatelessWidget {
               showToast(
                   text: state.loginModel.message,
                   state: ToastState.ERROR);
-
                /*showSnackBar(
                   context,
                   text: state.loginModel.message,
                   state: ToastState.ERROR);*/
-
-
 
             }
 
@@ -80,25 +80,17 @@ class ShopLoginScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image(
-                            image:AssetImage('assets/images/login.png',)
-                        ),
                         Text('LOGIN',
-                            style: Theme.of(context).textTheme.headline4?.copyWith(
-                              color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: ShopCubit.get(context).isDark?Colors.white:HexColor('333739'),
+                                fontSize: 30.0
                             )
                         ),
-                        Text('Login now to browse our hot offers',
-                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            color: Colors.grey,
-                          ),
-                        ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         defaultFormField(
                             controller: emailController,
-                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.emailAddress,
                             validate: ( value)
                             {
@@ -113,7 +105,6 @@ class ShopLoginScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                           controller: passwordController,
-                          color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                           type: TextInputType.visiblePassword,
                           isPassword: ShopLoginCubit.get(context).ispassword,
                           suffixPressed: (){
@@ -128,38 +119,31 @@ class ShopLoginScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock,
                           suffix: ShopLoginCubit.get(context).suffix,
-                          iconColor: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
 
                         ),
                         SizedBox(
                           height: 30,
                         ),
-                        ConditionalBuilder(
-                          condition: state is! ShopLoginLoadingState,
-                          builder: (context)=>defaultButton(
-                              function: (){
-                                if(formKey.currentState!.validate()) {
-                                  ShopLoginCubit.get(context).userLogin(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  );
-                                }
-                              },
-                              background: defaultColor,
-                              text: 'login'),
-                          fallback: (context)=>Center(child: CircularProgressIndicator()),
-                        ),
+                        defaultButton(
+                            function: (){
+                              if(formKey.currentState!.validate()) {
+                                ShopLoginCubit.get(context).userLogin(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                              }
+                            },
+                            background: defaultColor,
+                            text: 'login'),
                         SizedBox(
-                          height: 15,
+                          height: 5,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'Don\'t have an account?',
-                              style: TextStyle(
-                                color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
-                              ),
+
                             ),
                             defaultTextButten(
                                 function:(){

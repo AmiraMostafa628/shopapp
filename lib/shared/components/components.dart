@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 
+import 'constant.dart';
+
 Widget defaultButton({
   double width = double.infinity,
   Color background = Colors.blue,
@@ -14,7 +16,7 @@ Widget defaultButton({
 }) =>
     Container(
       width: width,
-      height: 50.0,
+      height: 40.0,
       child: MaterialButton(
         onPressed: (){
           function();
@@ -23,7 +25,6 @@ Widget defaultButton({
           isUpperCase ? text.toUpperCase() : text,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
           ),
         ),
       ),
@@ -64,12 +65,14 @@ Widget defaultFormField ({
   bool isClickable = true,
   Color? color,
   Color? iconColor,
+  double radius = 10.0,
 }
 
 ) => TextFormField(
   controller: controller,
   style: TextStyle(
-      color: color
+      color: color,
+    fontSize: 16
   ),
   keyboardType:type ,
   obscureText: isPassword,
@@ -80,21 +83,27 @@ Widget defaultFormField ({
     return validate!(value);
   },
   enabled: isClickable,
+
   decoration: InputDecoration(
     labelText: label,
     labelStyle: TextStyle(
-      color: color
+        color: color,
+         fontSize: 15
     ) ,
     prefixIcon: Icon(
       prefix,
       color: color,),
     suffixIcon: suffix!= null ? IconButton(
-        onPressed: () {
-          suffixPressed!();
-        },
-        icon:Icon(suffix),color: iconColor,) : null ,
-    border:OutlineInputBorder(),
+      onPressed: () {
+        suffixPressed!();
+      },
+      icon:Icon(suffix),color: iconColor,) : null ,
+    border:OutlineInputBorder(
+        borderRadius: BorderRadius.circular(radius)
+    ),
+
   ),
+
 
 
 );

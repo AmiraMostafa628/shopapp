@@ -5,6 +5,8 @@ import 'package:all_tests/shared/cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../shared/components/constant.dart';
+
 
 class ShopLayoutScreen extends StatelessWidget {
 

@@ -1,5 +1,5 @@
 class FavoritesModel {
-  bool? status;
+  dynamic status;
   dynamic message;
   Data? data;
 

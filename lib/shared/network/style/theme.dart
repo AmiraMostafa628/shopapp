@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -5,6 +6,10 @@ import 'color.dart';
 
 ThemeData darkTheme = ThemeData(
     fontFamily: 'Jannah',
+    scaffoldBackgroundColor:HexColor('333739'),
+    primaryColor: Colors.white,
+    brightness: Brightness.dark,
+    hintColor: Colors.white,
     appBarTheme: AppBarTheme(
         backgroundColor: HexColor('333739'),
         iconTheme: IconThemeData(
@@ -21,7 +26,6 @@ ThemeData darkTheme = ThemeData(
             fontWeight: FontWeight.bold
         )
     ),
-    scaffoldBackgroundColor:HexColor('333739'),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       backgroundColor: HexColor('333739'),
@@ -33,10 +37,11 @@ ThemeData darkTheme = ThemeData(
 
     textTheme: TextTheme(
       bodyText1: TextStyle(
-          fontSize: 24,
+          fontSize: 18.0,
           fontWeight: FontWeight.w600,
           color: Colors.white
       ),
+
 
     )
 );
@@ -44,6 +49,8 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme =ThemeData(
   fontFamily: 'Jannah',
   scaffoldBackgroundColor: Colors.white ,
+  primaryColor: Colors.black,
+  brightness: Brightness.light,
   appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
       iconTheme: IconThemeData(
@@ -56,7 +63,8 @@ ThemeData lightTheme =ThemeData(
       titleTextStyle: TextStyle(
           color: Colors.black,
           fontSize: 20.0,
-          fontWeight: FontWeight.bold
+          fontWeight: FontWeight.bold,
+          height: 1.3
       )
 
   ),
@@ -69,9 +77,11 @@ ThemeData lightTheme =ThemeData(
   ),
   textTheme: TextTheme(
       bodyText1: TextStyle(
-          fontSize: 24.0,
+          fontSize: 18.0,
           fontWeight: FontWeight.w600,
           color: Colors.black
-      )
+      ),
+
   ),
 );
+

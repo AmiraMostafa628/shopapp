@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../shared/components/constant.dart';
+
 class OnBoardingModel
 {
   final String image;
@@ -128,7 +130,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     }
                   },
                   backgroundColor: defaultColor,
-                  child: Icon(Icons.arrow_forward_ios),)
+
+                  child: Icon(Icons.arrow_forward_ios),
+                )
               ],
             )
           ],
@@ -151,7 +155,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
          '${model.title}',
          style: TextStyle(
            fontSize: 24.0,
-           color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+
          ),
        ),
        SizedBox(
@@ -161,7 +165,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
          '${model.body}',
          style: TextStyle(
            fontSize: 14.0,
-           color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+
          ),
        ),
         SizedBox(

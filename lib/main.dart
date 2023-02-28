@@ -22,6 +22,7 @@ void main()async {
   await CacheHelper.init();
 
   dynamic isDark= CacheHelper.getData(key: 'isDark');
+  print(isDark);
   late Widget widget;
 
   bool? onBoarding=CacheHelper.getData(key: 'onBoarding');
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 theme: lightTheme,
                 darkTheme:darkTheme,
-                themeMode: ShopCubit.get(context).isDark?ThemeMode.dark:ThemeMode.light,
+                themeMode: ShopCubit.get(context).isDark==true?ThemeMode.dark:ThemeMode.light,
                 home:startWidget,
               );
             },

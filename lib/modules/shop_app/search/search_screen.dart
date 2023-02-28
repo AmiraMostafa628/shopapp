@@ -30,7 +30,6 @@ class SearchScreen extends StatelessWidget {
                   children: [
                     defaultFormField(
                         controller: searchController,
-                        color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                         type: TextInputType.text,
                         validate: (value)
                         {

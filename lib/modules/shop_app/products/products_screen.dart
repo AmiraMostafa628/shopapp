@@ -12,6 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:toast/toast.dart';
 
+import '../../../shared/components/constant.dart';
+
 class ProductsScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
@@ -36,7 +38,8 @@ class ProductsScreen extends StatelessWidget {
         });
   }
 
-  Widget ProductBuilder(HomeModel model, CategoriesModel categoriesModel,context)=> SingleChildScrollView(
+  Widget ProductBuilder(HomeModel model, CategoriesModel categoriesModel,context)=>
+      SingleChildScrollView(
     physics: BouncingScrollPhysics(),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +53,7 @@ class ProductsScreen extends StatelessWidget {
                 ),
             ).toList(),
             options: CarouselOptions(
-              height: 250.0,
+              height: 200.0,
               initialPage: 0,
               viewportFraction: 1.0,
               enableInfiniteScroll: true,
@@ -93,14 +96,14 @@ class ProductsScreen extends StatelessWidget {
           height: 10.0,
         ),
         Container(
-          color: Colors.grey[300],
+          //color: Colors.grey[300],
           child: GridView.count(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               mainAxisSpacing: 1.0,
               crossAxisSpacing:1.0 ,
-              childAspectRatio: 1/1.68,
+              childAspectRatio: 1/1.45,
               children: List.generate(model.data!.products.length,
                       (index) => buildGridProduct(model.data!.products[index],context)),
 
@@ -136,7 +139,7 @@ class ProductsScreen extends StatelessWidget {
   Widget buildGridProduct(ProductModel model,context)
   {
     return Container(
-      color:  ShopCubit.get(context).isDark? HexColor('333739'):Colors.white,
+      //color:  isDark==true? HexColor('333739'):Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -148,8 +151,7 @@ class ProductsScreen extends StatelessWidget {
                 Image(
                   image: NetworkImage('${model.image}'),
                   width: double.infinity,
-                  height: 200,
-
+                  height: 110,
                 ),
                 if(model.disCount !=0)
                     Container(

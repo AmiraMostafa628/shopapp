@@ -40,6 +40,9 @@ class ShopRegisterScreen extends StatelessWidget {
 
                 ShopCubit.get(context).currentIndex =0;
                 ShopCubit.get(context).getUserData();
+                ShopCubit.get(context).getHomeData();
+                ShopCubit.get(context).getCategories();
+                ShopCubit.get(context).getFavorites();
 
                 navigateAndFinish(
                     context, ShopLayoutScreen()
@@ -71,21 +74,16 @@ class ShopRegisterScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('REGISTER',
-                            style: Theme.of(context).textTheme.headline4?.copyWith(
-                              color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
+                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                color: ShopCubit.get(context).isDark?Colors.white:HexColor('333739'),
+                                fontSize: 30.0
                             )
                         ),
-                        Text('Register now to browse our hot offers',
-                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            color: Colors.grey,
-                          ),
-                        ),
                         SizedBox(
-                          height: 30,
+                          height: 10,
                         ),
                         defaultFormField(
                             controller: nameController,
-                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.name,
                             validate: ( value)
                             {
@@ -100,7 +98,6 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: emailController,
-                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.emailAddress,
                             validate: ( value)
                             {
@@ -115,7 +112,6 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                           controller: passwordController,
-                          color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                           type: TextInputType.visiblePassword,
                           isPassword: ShopRegisterCubit.get(context).ispassword,
                           suffixPressed: (){
@@ -130,7 +126,6 @@ class ShopRegisterScreen extends StatelessWidget {
                           label: 'Password',
                           prefix: Icons.lock,
                           suffix: ShopRegisterCubit.get(context).suffix,
-                          iconColor:ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
 
                         ),
                         SizedBox(
@@ -138,7 +133,6 @@ class ShopRegisterScreen extends StatelessWidget {
                         ),
                         defaultFormField(
                             controller: phoneController,
-                            color: ShopCubit.get(context).isDark? Colors.grey[300]:HexColor('333739'),
                             type: TextInputType.phone,
                             validate: ( value)
                             {
@@ -150,7 +144,7 @@ class ShopRegisterScreen extends StatelessWidget {
                             prefix: Icons.phone),
 
                         SizedBox(
-                          height: 30,
+                          height: 15,
                         ),
                         ConditionalBuilder(
                           condition: true,
@@ -171,16 +165,13 @@ class ShopRegisterScreen extends StatelessWidget {
                           fallback: (context)=>Center(child: CircularProgressIndicator()),
                         ),
                         SizedBox(
-                          height: 15,
+                          height: 5,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               'Already  have an account',
-                              style: TextStyle(
-                                color: ShopCubit.get(context).isDark? Colors.white:HexColor('333739'),
-                              ),
                             ),
                             defaultTextButten(
                                 function:(){
@@ -205,3 +196,4 @@ class ShopRegisterScreen extends StatelessWidget {
     );
   }
 }
+
