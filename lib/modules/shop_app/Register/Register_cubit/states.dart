@@ -18,3 +18,7 @@ class ShopRegisterErrorState extends ShopRegisterStates{
 }
 
 class ShopRegisterChangePasswordVisibilityState extends ShopRegisterStates{}
+
+class ShopImagePickedSuccessStates extends ShopRegisterStates{}
+
+class ShopImagePickedErrorStates extends ShopRegisterStates{}

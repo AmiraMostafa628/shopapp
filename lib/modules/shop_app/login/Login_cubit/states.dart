@@ -17,3 +17,11 @@ class ShopLoginErrorState extends ShopLoginStates{
 }
 
 class ShopChangePasswordVisibilityState extends ShopLoginStates{}
+
+class ShopVerifyEmailSuccessState extends ShopLoginStates{}
+
+class ShopVerifyEmailErrorState extends ShopLoginStates{}
+
+class ShopChangePasswordSuccessState extends ShopLoginStates{}
+
+class ShopChangePasswordErrorState extends ShopLoginStates{}

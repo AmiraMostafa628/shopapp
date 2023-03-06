@@ -26,27 +26,53 @@ class ShopErrorcategoriesState extends ShopStates {
 
 class ShopChangeFavoritesState extends ShopStates{}
 
-class ShopSuccessChangeFavoritesState extends ShopStates{
+class ShopChangeFavoritesSuccessState extends ShopStates
+{
 
   final ChangeFavoritesModel model;
 
-  ShopSuccessChangeFavoritesState(this.model);
+  ShopChangeFavoritesSuccessState(this.model);
 }
 
-class ShopErrorChangeFavoritesState extends ShopStates {
+class ShopChangeFavoritesErrorState extends ShopStates {
   final String error;
 
-  ShopErrorChangeFavoritesState(this.error);
+  ShopChangeFavoritesErrorState(this.error);
 }
 
 class ShopLoadingGetFavoritesState extends ShopStates{}
 
-class ShopSuccessGetFavoritesState extends ShopStates{}
+class ShopGetFavoritesSuccessState extends ShopStates{}
 
-class ShopErrorGetFavoritesState extends ShopStates {
+class ShopGetFavoritesErrorState extends ShopStates {
   final String error;
 
-  ShopErrorGetFavoritesState(this.error);
+  ShopGetFavoritesErrorState(this.error);
+}
+
+class ShopChangeCartState extends ShopStates{}
+
+class ShopChangeCartSuccessState extends ShopStates{
+
+  final ChangeFavoritesModel model;
+
+  ShopChangeCartSuccessState(this.model);
+}
+
+class ShopChangeCartErrorState extends ShopStates {
+  final String error;
+
+  ShopChangeCartErrorState(this.error);
+}
+
+class ShopLoadingGetCartState extends ShopStates{}
+
+class ShopGetCartSuccessState extends ShopStates{}
+
+class ShopGetCartErrorState extends ShopStates {
+  final String error;
+
+  ShopGetCartErrorState(this.error);
 }
 
 class ShopLoadingUserDataState extends ShopStates{}
@@ -72,3 +98,13 @@ class ShopErrorUpdateUserDataState extends ShopStates {
 class AppChangeBottomModeState extends ShopStates{}
 
 class AppChangeCurrentModeState extends ShopStates{}
+
+class ShopProfileImagePickedSuccessStates extends ShopStates{}
+
+class ShopProfileImagePickedErrorStates extends ShopStates{}
+
+class AppCreateDatabaseState extends ShopStates{}
+
+class SocialUploadProfileImageSuccessStates extends ShopStates{}
+
+class SocialUploadProfileImageErrorStates extends ShopStates{}

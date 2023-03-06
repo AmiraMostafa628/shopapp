@@ -13,3 +13,7 @@ const PROFILE = 'profile';
 const UPDATEPROFILE = 'update-profile';
 
 const SEARCH = 'products/search';
+
+const Carts ='carts';
+
+const ChangePassword ='change-password';

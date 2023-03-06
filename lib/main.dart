@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:all_tests/layout/shopLayout.dart';
+import 'package:all_tests/modules/shop_app/login/Login_cubit/Login_cubit.dart';
 import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:all_tests/shared/cubit/states.dart';
 import 'package:all_tests/shared/network/local/cache_helper.dart';
@@ -62,9 +63,12 @@ class MyApp extends StatelessWidget {
 
   MyApp({this.startWidget,this.isDark});
   Widget build(BuildContext context) {
-        return BlocProvider(
-          create: (context) => ShopCubit()
-            ..getHomeData()..getCategories()..getFavorites()..getUserData()..changeMode(fromShared: isDark),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context)=>ShopCubit()..getHomeData()..getCategories()..getCarts()
+              ..getFavorites()..getUserData()..changeMode(fromShared: isDark),),
+            BlocProvider(create: (context)=>ShopLoginCubit())
+          ],
           child: BlocConsumer<ShopCubit,ShopStates>(
             listener: (context,state){},
             builder: (context,state){

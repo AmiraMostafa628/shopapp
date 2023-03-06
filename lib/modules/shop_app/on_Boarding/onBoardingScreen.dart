@@ -33,7 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List <OnBoardingModel> onBoarding =
   [
     OnBoardingModel(
-      image: 'assets/images/onboard_1.jpg',
+      image: 'assets/images/onboard1.jpg',
       title: 'You don\'t have to go shopping',
       body:  'In past you had to go shopping but it waste your time',
     ),
@@ -43,7 +43,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       body:  'You can buy anything without going out your home anymore',
     ),
     OnBoardingModel(
-      image: 'assets/images/onboard3.jpg',
+      image: 'assets/images/onboard3.png',
       title: 'Your order will come to your home',
       body:  'It\'s easy now, you will receive your order faster by using drones delivery',
     ),
@@ -154,7 +154,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
        Text(
          '${model.title}',
          style: TextStyle(
-           fontSize: 24.0,
+           fontSize: 20.0,
+           fontWeight: FontWeight.bold,
+           height: 1.5
 
          ),
        ),

@@ -1,3 +1,4 @@
+import 'package:all_tests/models/shop_model/cart_model.dart';
 import 'package:all_tests/shared/cubit/shop_cubit.dart';
 import 'package:all_tests/shared/network/style/color.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,7 @@ import 'constant.dart';
 Widget defaultButton({
   double width = double.infinity,
   Color background = Colors.blue,
-  bool isUpperCase = true,
-  double radius = 3.0,
+  double radius = 10.0,
   required Function function,
   required String text,
 }) =>
@@ -22,9 +22,10 @@ Widget defaultButton({
           function();
         },
         child: Text(
-          isUpperCase ? text.toUpperCase() : text,
+          text,
           style: TextStyle(
             color: Colors.white,
+            fontSize: 17
           ),
         ),
       ),
@@ -44,7 +45,7 @@ Widget defaultTextButten({
 })=>TextButton(
     onPressed: (){function();},
     child: Text(
-        text.toUpperCase(),
+        text,
       style: TextStyle(
         color: color
       ),
@@ -65,15 +66,17 @@ Widget defaultFormField ({
   bool isClickable = true,
   Color? color,
   Color? iconColor,
-  double radius = 10.0,
+  double radius = 20.0,
 }
 
 ) => TextFormField(
   controller: controller,
   style: TextStyle(
       color: color,
-    fontSize: 16
+    fontSize: 16,
+    height: 1.2,
   ),
+
   keyboardType:type ,
   obscureText: isPassword,
   onFieldSubmitted:(s){
@@ -88,7 +91,7 @@ Widget defaultFormField ({
     labelText: label,
     labelStyle: TextStyle(
         color: color,
-         fontSize: 15
+         fontSize: 14,
     ) ,
     prefixIcon: Icon(
       prefix,
@@ -187,10 +190,11 @@ Widget myDivider() =>Padding(
 );
 
 Widget buildListItem(
-     model,
+    model,
     context,
     {
       bool isfavScreen=true,
+      bool iscartScreen=true,
 
     }
     )=>Padding(
@@ -208,7 +212,7 @@ Widget buildListItem(
               height: 120,
 
             ),
-            if(model.discount !=0 && isfavScreen)
+            if(model.discount !=0 && isfavScreen||model.discount !=0 && iscartScreen)
               Container(
                 color: Colors.red,
                 padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -253,7 +257,7 @@ Widget buildListItem(
                   ),
                   SizedBox(
                     width: 5.0,),
-                  if(model.discount !=0 && isfavScreen)
+                  if(model.discount !=0 && isfavScreen||model.discount !=0 && iscartScreen)
                     Text(
                       '${model.oldPrice}',
                       style: TextStyle(
@@ -278,6 +282,20 @@ Widget buildListItem(
                             color: Colors.white,
                           )
                       )),
+                  if(iscartScreen)
+                    IconButton(onPressed:(){
+                      ShopCubit.get(context).changeCart(model.id);
+                    },
+                        icon: CircleAvatar(
+                            radius: 15.0,
+                            backgroundColor:ShopCubit.get(context).cart
+                            [model.id] ? defaultColor: Colors.grey,
+                            child: Icon(
+                              Icons.shopping_cart,
+                              size: 14.0,
+                              color: Colors.white,
+                            )
+                        )),
                 ],
               ),
             ],

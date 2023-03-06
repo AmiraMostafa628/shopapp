@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:all_tests/models/shop_model/shopLogin.dart';
 import 'package:all_tests/modules/shop_app/Register/Register_cubit/states.dart';
+import 'package:all_tests/modules/shop_app/login/Login_cubit/Login_cubit.dart';
 import 'package:all_tests/modules/shop_app/login/Login_cubit/states.dart';
 import 'package:all_tests/shared/network/end_point.dart';
 import 'package:all_tests/shared/network/remote/dio_helper.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class ShopRegisterCubit extends Cubit <ShopRegisterStates>{
@@ -14,15 +19,16 @@ class ShopRegisterCubit extends Cubit <ShopRegisterStates>{
   static ShopRegisterCubit get(context) => BlocProvider.of(context);
 
   ShopLoginModel? loginModel;
-  
-  void userRegister({
+
+  Future<void> userRegister({
     required String name,
     required String email,
     required String password,
     required String phone,
+    BuildContext? context,
 
 })
-  {
+  async {
     emit(ShopRegisterLoadingState());
     DioHelper.postData(
       url: REGISTER,

@@ -29,3 +29,53 @@ var token ;
 
 
 
+/*return Scaffold(
+              body: SliderDrawer(
+                key: key,
+                appBar: SliderAppBar(
+                    appBarColor: Colors.white,
+                    title: Text('Salla',
+                        textAlign: TextAlign.left,
+                        style:
+                        const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            height: 1.3)),
+                  isTitleCenter:false ,
+                  trailing: IconButton(onPressed: (){
+                    NavigateTo(context, SearchScreen());
+                  }
+                      , icon: Icon(Icons.search,color: Colors.black,),
+
+                  ),
+                ),
+                slider: SliderItem(),
+                child: cubit.bottomScreens[cubit.currentIndex]),
+              bottomNavigationBar: BottomNavigationBar(
+                    onTap: (index)
+                    {
+                      cubit.changeBottom(index);
+                    },
+                    currentIndex: cubit.currentIndex ,
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.home),
+                          label: 'Home'
+                      ),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.apps),
+                          label: 'Categories'
+                      ),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.favorite),
+                          label: 'favorite'
+                      ),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.shopping_cart),
+                          label: 'cart'
+                      ),
+                    ],
+                  )
+              );*/
+

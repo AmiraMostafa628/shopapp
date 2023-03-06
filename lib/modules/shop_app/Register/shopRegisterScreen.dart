@@ -43,6 +43,7 @@ class ShopRegisterScreen extends StatelessWidget {
                 ShopCubit.get(context).getHomeData();
                 ShopCubit.get(context).getCategories();
                 ShopCubit.get(context).getFavorites();
+                ShopCubit.get(context).getCarts();
 
                 navigateAndFinish(
                     context, ShopLayoutScreen()
@@ -73,10 +74,10 @@ class ShopRegisterScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('REGISTER',
+                        Text('Sign up',
                             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 color: ShopCubit.get(context).isDark?Colors.white:HexColor('333739'),
-                                fontSize: 30.0
+                                fontSize: 25.0
                             )
                         ),
                         SizedBox(
@@ -156,6 +157,7 @@ class ShopRegisterScreen extends StatelessWidget {
                                     email: emailController.text,
                                     password: passwordController.text,
                                     phone: phoneController.text,
+                                    context: context
                                   );
                                 }
                               },
@@ -171,7 +173,7 @@ class ShopRegisterScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Already  have an account',
+                              'Already have an account?',
                             ),
                             defaultTextButten(
                                 function:(){

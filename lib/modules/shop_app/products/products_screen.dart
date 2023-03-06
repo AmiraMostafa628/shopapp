@@ -20,7 +20,7 @@ class ProductsScreen extends StatelessWidget {
     ToastContext().init(context);
     return BlocConsumer<ShopCubit,ShopStates>
       (listener: (context,state){
-        if(state is ShopSuccessChangeFavoritesState)
+        if(state is ShopChangeFavoritesSuccessState)
           {
             if(!state.model.status!)
               {
@@ -101,8 +101,7 @@ class ProductsScreen extends StatelessWidget {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
-              mainAxisSpacing: 1.0,
-              crossAxisSpacing:1.0 ,
+
               childAspectRatio: 1/1.45,
               children: List.generate(model.data!.products.length,
                       (index) => buildGridProduct(model.data!.products[index],context)),
@@ -169,7 +168,7 @@ class ProductsScreen extends StatelessWidget {
             ),
           ),
          Padding(
-           padding: const EdgeInsets.all(12.0),
+           padding: const EdgeInsets.symmetric(horizontal: 10.0),
            child: Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
@@ -189,7 +188,7 @@ class ProductsScreen extends StatelessWidget {
                    Text(
                      '${model.price.round()}',
                      style: TextStyle(
-                       fontSize: 12.0,
+                       fontSize: 10.0,
                        color: defaultColor,
                      ),
 
@@ -197,29 +196,43 @@ class ProductsScreen extends StatelessWidget {
                    SizedBox(
                      width: 5.0,),
                    if(model.disCount !=0)
-                      Text(
+                      Expanded(
+                        child: Text(
                      '${model.oldPrice.round()}',
                      style: TextStyle(
-                         fontSize: 10.0,
-                         color: Colors.grey,
-                         decoration: TextDecoration.lineThrough
+                           fontSize: 9.0,
+                           color: Colors.grey,
+                           decoration: TextDecoration.lineThrough
                      ),
 
 
                    ),
+                      ),
                    Spacer(),
-                   IconButton(onPressed:(){
-                     ShopCubit.get(context).changeFavorites(model.id!);
-                   },
-                       icon: CircleAvatar(
-                         radius: 15.0,
-                           backgroundColor:ShopCubit.get(context).favorites[model.id]!? defaultColor: Colors.grey,
-                           child: Icon(
-                               Icons.favorite_border,
-                             size: 14.0,
-                             color: Colors.white,
-                           )
-                       ))
+                   SizedBox(
+                     height: 25.0,
+                     width: 25.0,
+                     child: IconButton(onPressed:(){
+                       ShopCubit.get(context).changeCart(model.id!);
+                     },
+                         icon: Icon(
+                           Icons.shopping_cart,
+                           size: 20.0,
+                           color: ShopCubit.get(context).cart[model.id]!? defaultColor: Colors.grey,
+                         )),
+                   ),
+                   SizedBox(
+                     width: 25,
+                     height: 25,
+                     child: IconButton(onPressed:(){
+                       ShopCubit.get(context).changeFavorites(model.id!);
+                     },
+                         icon: Icon(
+                             Icons.favorite,
+                           size: 20.0,
+                           color: ShopCubit.get(context).favorites[model.id]!? defaultColor: Colors.grey,
+                         )),
+                   )
                  ],
                ),
              ],

@@ -45,10 +45,12 @@ class ShopLoginScreen extends StatelessWidget {
                 ShopCubit.get(context).getHomeData();
                 ShopCubit.get(context).getCategories();
                 ShopCubit.get(context).getFavorites();
+                ShopCubit.get(context).getCarts();
 
-                navigateAndFinish(
+               if (ShopCubit.get(context).userModel !=null)
+                 navigateAndFinish(
                     context, ShopLayoutScreen()
-                );
+                  );
               }
               );
 
@@ -71,93 +73,96 @@ class ShopLoginScreen extends StatelessWidget {
         builder: (context,state){
           return Scaffold(
             appBar: AppBar(),
-            body: Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('LOGIN',
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: ShopCubit.get(context).isDark?Colors.white:HexColor('333739'),
-                                fontSize: 30.0
-                            )
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        defaultFormField(
-                            controller: emailController,
-                            type: TextInputType.emailAddress,
-                            validate: ( value)
-                            {
-                              if (value!.isEmpty) {
-                                return 'Email Can not be Empty';
-                              }
-                            },
-                            label: 'Email Address',
-                            prefix: Icons.email_outlined),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        defaultFormField(
-                          controller: passwordController,
-                          type: TextInputType.visiblePassword,
-                          isPassword: ShopLoginCubit.get(context).ispassword,
-                          suffixPressed: (){
-                            ShopLoginCubit.get(context).changePasswordVisibility();
-                          },
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image(image: AssetImage('assets/images/login.png'),
+                        height: 150,
+                        width: double.infinity,
+                      ),
+                      Text('Login',
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                              color: ShopCubit.get(context).isDark?Colors.white:HexColor('333739'),
+                              fontSize: 25.0
+                          )
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      defaultFormField(
+                          controller: emailController,
+                          type: TextInputType.emailAddress,
                           validate: ( value)
                           {
                             if (value!.isEmpty) {
-                              return 'password is too short';
+                              return 'Email Can not be Empty';
                             }
                           },
-                          label: 'Password',
-                          prefix: Icons.lock,
-                          suffix: ShopLoginCubit.get(context).suffix,
+                          label: 'Email Address',
+                          prefix: Icons.email_outlined),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      defaultFormField(
+                        controller: passwordController,
+                        type: TextInputType.visiblePassword,
+                        isPassword: ShopLoginCubit.get(context).ispassword,
+                        suffixPressed: (){
+                          ShopLoginCubit.get(context).changePasswordVisibility();
+                        },
+                        validate: ( value)
+                        {
+                          if (value!.isEmpty) {
+                            return 'password is too short';
+                          }
+                        },
+                        label: 'Password',
+                        prefix: Icons.lock,
+                        suffix: ShopLoginCubit.get(context).suffix,
 
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        defaultButton(
-                            function: (){
-                              if(formKey.currentState!.validate()) {
-                                ShopLoginCubit.get(context).userLogin(
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                );
-                              }
-                            },
-                            background: defaultColor,
-                            text: 'login'),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Don\'t have an account?',
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      defaultButton(
+                          function: (){
+                            if(formKey.currentState!.validate()) {
+                              ShopLoginCubit.get(context).userLogin(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              );
+                            }
+                          },
+                          background: defaultColor,
+                          text: 'Login'),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Don\'t have an account?',
 
-                            ),
-                            defaultTextButten(
-                                function:(){
-                                  NavigateTo(
-                                      context,
-                                      ShopRegisterScreen());
-                                },
-                                color: defaultColor,
-                                text: 'Register')
-                          ],
-                        )
-                      ],
+                          ),
+                          defaultTextButten(
+                              function:(){
+                                NavigateTo(
+                                    context,
+                                    ShopRegisterScreen());
+                              },
+                              color: defaultColor,
+                              text: 'Register')
+                        ],
+                      )
+                    ],
 
-                    ),
                   ),
                 ),
               ),

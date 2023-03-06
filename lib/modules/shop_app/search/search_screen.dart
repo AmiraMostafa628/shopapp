@@ -1,3 +1,4 @@
+import 'package:all_tests/models/shop_model/cart_model.dart';
 import 'package:all_tests/modules/shop_app/search/cubit/searchCubit.dart';
 import 'package:all_tests/modules/shop_app/search/cubit/states.dart';
 import 'package:all_tests/shared/components/components.dart';
@@ -25,7 +26,7 @@ class SearchScreen extends StatelessWidget {
             body: Form(
               key: formKey,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
                     defaultFormField(
@@ -54,7 +55,11 @@ class SearchScreen extends StatelessWidget {
                         Expanded(
                         child: ListView.separated(
                           physics: BouncingScrollPhysics(),
-                          itemBuilder: (context,index)=>buildListItem(ShopSearch.get(context).model!.data!.data[index],context,isfavScreen:false),
+                          itemBuilder: (context,index)=>buildListItem(
+                              ShopSearch.get(context).model!.data!.data[index],context,
+                              isfavScreen:false,
+                            iscartScreen: false,
+                          ),
                           separatorBuilder: (context,index)=> myDivider(),
                           itemCount: ShopSearch.get(context).model!.data!.data.length,
                         ),

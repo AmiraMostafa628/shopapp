@@ -1,3 +1,5 @@
+
+
 import 'package:dio/dio.dart';
 
 
@@ -10,7 +12,15 @@ class DioHelper {
             baseUrl:'https://student.valuxapps.com/api/',
             receiveDataWhenStatusError: true,
         )
+
     );
+
+    dio.interceptors.add(InterceptorsWrapper(
+      onError: (DioError e, handler) {
+        print(e.message);
+        return handler.next(e);
+      },
+    ));
   }
 
 
@@ -55,7 +65,7 @@ class DioHelper {
   static Future<Response> putData({
     required String url,
     Map<String,dynamic>? query,
-    required Map<String,dynamic>? data,
+    required Map<String,dynamic> data,
     String lang= 'en',
     String? token,
   })async
