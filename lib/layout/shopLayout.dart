@@ -18,9 +18,7 @@ class ShopLayoutScreen extends StatelessWidget {
         listener:(context,state){} ,
         builder: (context,state){
           var cubit = ShopCubit.get(context);
-          return ConditionalBuilder(
-            condition: ShopCubit.get(context).userModel!.data != null,
-            builder: (context)=>Scaffold(
+          return Scaffold(
               appBar: AppBar(
                 title: Text(
                   'Salla',
@@ -60,7 +58,7 @@ class ShopLayoutScreen extends StatelessWidget {
                 ],
               ),
 
-              drawer: Drawer(
+              drawer: ShopCubit.get(context).userModel!.data != null? Drawer(
                   child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
@@ -115,11 +113,9 @@ class ShopLayoutScreen extends StatelessWidget {
 
                         )
 
-                      ])),
+                      ])):null,
 
-            ),
-            fallback: (context)=>Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
+            );
         },);
 
   }
