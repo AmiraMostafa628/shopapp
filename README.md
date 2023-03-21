@@ -1,7 +1,17 @@
 <img src=https://user-images.githubusercontent.com/103458291/223159617-6750fbb2-d215-43e8-b8dd-a256871dba57.gif width="300" height="550" />
-# shopapp
 
+## shopapp
 A new Flutter project.
+
+## Features
+- Full authentication with Api containing (Sign in, Sign up, logout). 
+- State-management using Bloc.
+- Back end validation and error handling incase of wrong inputs or technical issue.
+- Adding or deleting products to your cart.
+- Adding or deleting products to your favorite list.
+- Searching for any product.
+- Beautiful UI using drawer.
+- Updating profile info.
 
 ## Getting Started
 
